@@ -16,6 +16,7 @@ func main() {
 	router := gin.Default()
 	router.Use(api.CORSMiddleware())
 	router.Use(api.RateLimiter())
+	router.Use(api.AuthMiddleware())
 
 	router.GET("/memes", func(c *gin.Context) { DB.GetMeme(c, db) })
 	router.GET("/memes/:id", func(c *gin.Context) { DB.GetMemeByID(c, db) })
