@@ -1,7 +1,6 @@
-package DB
+package internal
 
 import (
-	"APIdinyPodkluchiny/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -23,12 +22,12 @@ func InitDB() *gorm.DB {
 }
 func AutoMigrate(db *gorm.DB) error {
 	return db.AutoMigrate(
-		&models.Meme{},
-		&models.User{},
-		&models.UserRole{},
-		&models.Tag{},
-		&models.Category{},
-		&models.TagMeme{},
-		&models.CategoryMeme{},
+		&Meme{},
+		&User{},
+		&UserRole{},
+		&Tag{},
+		&Category{},
+		&TagMeme{},
+		&CategoryMeme{},
 	)
 }

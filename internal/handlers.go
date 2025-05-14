@@ -1,14 +1,13 @@
-package DB
+package internal
 
 import (
-	"APIdinyPodkluchiny/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"net/http"
 )
 
 func GetMeme(c *gin.Context, db *gorm.DB) {
-	var memes []models.Meme
+	var memes []Meme
 	if err := db.Find(&memes).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -18,7 +17,7 @@ func GetMeme(c *gin.Context, db *gorm.DB) {
 
 func GetMemeByID(c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
-	var meme models.Meme
+	var meme Meme
 
 	if err := db.First(&meme, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"message": "Meme not found"})
@@ -28,7 +27,7 @@ func GetMemeByID(c *gin.Context, db *gorm.DB) {
 }
 
 func CreateMeme(c *gin.Context, db *gorm.DB) {
-	var NewMeme models.Meme
+	var NewMeme Meme
 	if err := c.ShouldBindJSON(&NewMeme); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -50,7 +49,7 @@ func UpdateMeme(c *gin.Context, db *gorm.DB) {
 		return
 	}
 
-	result := db.Model(&models.Meme{}).Where("idmeme= ?", id).Updates(updatedData)
+	result := db.Model(&Meme{}).Where("idmeme= ?", id).Updates(updatedData)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
@@ -64,7 +63,7 @@ func UpdateMeme(c *gin.Context, db *gorm.DB) {
 
 func DeleteMeme(c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
-	result := db.Where("idmeme = ?", id).Delete(&models.Meme{})
+	result := db.Where("idmeme = ?", id).Delete(&Meme{})
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": result.Error.Error()})
 		return
