@@ -80,6 +80,122 @@ info:
   title: MemesApp
   version: "0.2"
 paths:
+  /categories:
+    patch:
+      consumes:
+      - application/json
+      description: Обновляет категорию мемов по указанному ID
+      parameters:
+      - description: ID категории
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновляемые поля
+        in: body
+        name: updates
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Обновить категорию мемов
+      tags:
+      - Categories
+    post:
+      consumes:
+      - application/json
+      description: Добавляет новую категорию мемов в базу данных
+      parameters:
+      - description: Данные новой категории
+        in: body
+        name: meme
+        required: true
+        schema:
+          $ref: '#/definitions/models.Category'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Category'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать новую категорию мемов
+      tags:
+      - Categories
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет категорию мемов по указанному ID
+      parameters:
+      - description: ID категории
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить категорию мемов
+      tags:
+      - Categories
   /memes:
     get:
       consumes:
@@ -244,4 +360,120 @@ paths:
       summary: Обновить мем
       tags:
       - Memes
+  /tags:
+    post:
+      consumes:
+      - application/json
+      description: Добавляет новый тег в базу данных
+      parameters:
+      - description: Данные нового тега
+        in: body
+        name: meme
+        required: true
+        schema:
+          $ref: '#/definitions/models.Tag'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Tag'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать новый тег
+      tags:
+      - Tags
+  /tags/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет тег по указанному ID
+      parameters:
+      - description: ID тега
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить тег
+      tags:
+      - Tags
+    patch:
+      consumes:
+      - application/json
+      description: Обновляет данные тега по ID
+      parameters:
+      - description: ID тега
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновляемые поля
+        in: body
+        name: updates
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Обновть тег
+      tags:
+      - Tags
 swagger: "2.0"
