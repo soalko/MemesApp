@@ -18,7 +18,7 @@ type Meme struct {
 	IDUser           int             `gorm:"column:iduser" json:"id_user"`
 	ShortDescription string          `gorm:"column:shortdescription;type:varchar(1023)" json:"short_description"`
 	LongDescription  string          `gorm:"column:longdescription;type:varchar(1023)" json:"long_description"`
-	VectorList       pq.Float32Array `gorm:"column:vectorlist;type:real[]" json:"vector_list"`
+	VectorList       pq.Float32Array `gorm:"column:vectorlist;type:real[]" swaggertype:"array,number" json:"vector_list"`
 	Image            string          `gorm:"column:image;type:varchar(255)" json:"image"`
 	User             User            `gorm:"-" json:"user"`
 	Tags             []Tag           `gorm:"many2many:tagmeme;" json:"tags"`
