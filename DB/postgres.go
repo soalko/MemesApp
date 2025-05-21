@@ -2,9 +2,11 @@ package DB
 
 import (
 	"APIdinyPodkluchiny/models"
+	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"net/http"
 )
 
 var db *gorm.DB
@@ -31,4 +33,13 @@ func AutoMigrate(db *gorm.DB) error {
 		&models.TagMeme{},
 		&models.CategoryMeme{},
 	)
+}
+
+func PingDB(c *gin.Context) {
+	Db, _ := db.DB()
+	if err := Db.Ping(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"status": "DB ERROR"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "OK"})
 }
