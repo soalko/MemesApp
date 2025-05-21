@@ -60,7 +60,7 @@ func main() {
 		router.POST("/categories", func(c *gin.Context) { DB.CreateCategory(c, db) })
 		router.PATCH("/categories/:id", func(c *gin.Context) { DB.UpdateCategory(c, db) })
 		router.DELETE("/categories/:id", func(c *gin.Context) { DB.DeleteCategory(c, db) })
-		router.Run(":8080")
+		router.Run("178.250.158.143:8080")
 
 	}
 }
