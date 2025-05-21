@@ -37,6 +37,7 @@ func main() {
 	router := gin.Default()
 	router.Use(api.CORSMiddleware())
 	router.Use(api.RateLimiter())
+	router.Use(api.AuthMiddleware())
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
