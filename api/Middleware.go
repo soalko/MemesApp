@@ -36,6 +36,12 @@ func CORSMiddleware() gin.HandlerFunc {
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/swagger") ||
+			strings.HasPrefix(c.Request.URL.Path, "/docs") ||
+			c.Request.URL.Path == "/v2/api-docs" {
+			c.Next()
+			return
+		}
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Authorization header is empty"})
