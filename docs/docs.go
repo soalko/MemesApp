@@ -728,8 +728,8 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "0.2",
-	Host:             "localhost:8080",
+	Version:          "0.3",
+	Host:             "178.250.158.143:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "MemesApp",

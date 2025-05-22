@@ -13,7 +13,7 @@ import (
 )
 
 //	@title			MemesApp
-//	@version		0.2
+//	@version		0.3
 //	@description	Система пояснения сложных информационных сообщений юмористического характера.
 //	@termsOfService	http://swagger.io/terms/
 
@@ -24,7 +24,7 @@ import (
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-//	@host		localhost:8080
+//	@host		178.250.158.143:8080
 //	@BasePath	/
 
 // @Failure 400 {object} models.ErrorResponse
@@ -47,10 +47,6 @@ func main() {
 		public.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 		router.GET("/memes", func(c *gin.Context) { DB.GetMeme(c, db) })
 		router.GET("/memes/:id", func(c *gin.Context) { DB.GetMemeByID(c, db) })
-	}
-	private := router.Group("/")
-	private.Use(api.AuthMiddleware())
-	{
 		router.POST("/memes", func(c *gin.Context) { DB.CreateMeme(c, db) })
 		router.PATCH("/memes/:id", func(c *gin.Context) { DB.UpdateMeme(c, db) })
 		router.DELETE("/memes/:id", func(c *gin.Context) { DB.DeleteMeme(c, db) })
@@ -60,7 +56,11 @@ func main() {
 		router.POST("/categories", func(c *gin.Context) { DB.CreateCategory(c, db) })
 		router.PATCH("/categories/:id", func(c *gin.Context) { DB.UpdateCategory(c, db) })
 		router.DELETE("/categories/:id", func(c *gin.Context) { DB.DeleteCategory(c, db) })
-		router.Run("178.250.158.143:8080")
-
 	}
+	private := router.Group("/")
+	private.Use(api.AuthMiddleware())
+	{
+		//пока для теста всё public
+	}
+	router.Run(":8080")
 }
